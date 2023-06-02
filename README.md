@@ -1,3 +1,7 @@
+# Proyecto Media-Music-Player
+Este proyecto esta desarrollado por el grupo 7 del bootcamp WD 4, el cual consiste en ser un reproductor de canciones a traves de la toma de datos de la API de Deezer con el uso de Fast API, con ello se tendra la visualizacion de los datos en el reproductor por medio de distintos componentes.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

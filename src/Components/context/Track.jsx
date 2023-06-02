@@ -9,6 +9,11 @@ export const TrackProvider = ({ children }) => {
   const [trackInfo, setTrackInfo] = useState(null);
   const [lyrics, setLyrics] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+
+  const handleSetVolume = (newVolume) => {
+    setVolume(newVolume);
+  };
 
   const continueTrack = () => {
     setIsPlaying(true);
@@ -78,7 +83,7 @@ export const TrackProvider = ({ children }) => {
   }, []);
 
   return (
-    <TrackContext.Provider value={{ trackInfo, lyrics, isPlaying, continueTrack, stopTrack, previous, next}}>
+    <TrackContext.Provider value={{ trackInfo, lyrics, isPlaying, continueTrack, stopTrack, previous, next, volume, setVolume: handleSetVolume}}>
       {children}
     </TrackContext.Provider>
   );

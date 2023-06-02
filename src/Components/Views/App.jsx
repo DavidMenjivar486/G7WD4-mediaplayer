@@ -5,6 +5,7 @@ import { TrackProvider } from '../context/Track';
 import MusicBar from '../MusicBar';
 import { MusicControls } from '../Controls';
 import { Lyrics } from '../Lyrics';
+import { VolumeControl } from '../Volume';
 
 export function App() {
 	return (
@@ -15,6 +16,7 @@ export function App() {
 					<TrackCard></TrackCard>
 					<MusicControls></MusicControls>
           			<MusicBar></MusicBar>
+					<VolumeControl></VolumeControl>
 					<Lyrics></Lyrics>
 				</div>
 			</div>

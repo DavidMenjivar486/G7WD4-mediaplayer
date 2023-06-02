@@ -1,24 +1,84 @@
 import React, { useEffect, useState, createContext } from 'react';
-import axios from "axios";
-import { fetchLyricsByTrackId, fetchTrackById} from '../Request'
+import axios from 'axios';
 
-export const TrackContext = createContext()
+const API_URL = 'https://deezerdevs-deezer.p.rapidapi.com';
+const trackID = 313554
+export const TrackContext = createContext();
 
 export const TrackProvider = ({ children }) => {
   const [trackInfo, setTrackInfo] = useState(null);
   const [lyrics, setLyrics] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  // Obtener información de una canción y sus letras por su ID
-  const getTrackAndLyrics = async (trackId) => {
-    const track = await fetchTrackById(trackId);
-    const trackLyrics = await fetchLyricsByTrackId(trackId);
-
-    setTrackInfo(track);
-    setLyrics(trackLyrics);
+  const continueTrack = () => {
+    setIsPlaying(true);
   };
 
+  const stopTrack = () => {
+
+    setIsPlaying(false);
+  };
+
+  const previous = () => {
+    if (trackInfo.id > 0) {
+
+      const currentTrackId = trackInfo.id;
+      const previousTrackId = currentTrackId - 1;
+
+      return trackInfo.id = previousTrackId
+    }
+
+    else {
+      return trackInfo.id
+    }
+  };
+
+  const next = () => {
+    const currentTrackId = trackInfo.id;
+    const nextTrackId = currentTrackId + 1;
+
+    return trackInfo.id = nextTrackId
+  };
+
+  const fetchTrackAndLyrics = async () => {
+    const options = {
+      method: 'GET',
+      url: `${API_URL}/track/${trackID}`,
+      headers: {
+        'X-RapidAPI-Key': '29ff09248cmshe7c02d93500d44ep1775b9jsn22093e0293d4',
+        'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      const track = response.data;
+
+      const lyricsOptions = {
+        method: 'GET',
+        url: `${API_URL}/track/${trackID}/lyrics`,
+        headers: {
+          'X-RapidAPI-Key': '29ff09248cmshe7c02d93500d44ep1775b9jsn22093e0293d4',
+          'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
+        }
+      };
+
+      const lyricsResponse = await axios.request(lyricsOptions);
+      const trackLyrics = lyricsResponse.data;
+
+      setTrackInfo(track);
+      setLyrics(trackLyrics);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTrackAndLyrics();
+  }, []);
+
   return (
-    <TrackContext.Provider value={{ trackInfo, lyrics, getTrackAndLyrics }}>
+    <TrackContext.Provider value={{ trackInfo, lyrics, isPlaying, continueTrack, stopTrack, previous, next}}>
       {children}
     </TrackContext.Provider>
   );

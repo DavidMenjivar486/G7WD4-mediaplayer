@@ -33,4 +33,4 @@ const formatTime = (time) => {
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
 
-export default MusicBar;
+export default MusicBar

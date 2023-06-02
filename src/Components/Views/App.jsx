@@ -3,6 +3,8 @@ import { Header } from '../Header';
 import { TrackCard } from '../TrackCard';
 import { TrackProvider } from '../context/Track';
 import MusicBar from '../MusicBar';
+import { MusicControls } from '../Controls';
+import { Lyrics } from '../Lyrics';
 
 export function App() {
 	return (
@@ -11,10 +13,10 @@ export function App() {
 				<div className='inside'>
 					<Header></Header>
 					<TrackCard></TrackCard>
-          <MusicBar></MusicBar>
-					{/*<Controls></Controls>*/}
+					<MusicControls></MusicControls>
+          			<MusicBar></MusicBar>
+					<Lyrics></Lyrics>
 				</div>
-				{/*<Lyrics></Lyrics>*/}
 			</div>
 		</TrackProvider>
   );
